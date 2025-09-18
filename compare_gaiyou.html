@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よりそい - Before/After比較図</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+            align-items: start;
+        }
+        
+        .before-section, .after-section {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .before-section {
+            border-left: 5px solid #ff4757;
+        }
+        
+        .after-section {
+            border-left: 5px solid #2ed573;
+        }
+        
+        .before-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b7a, #c44569);
+            opacity: 0.1;
+            border-radius: 0 20px 0 100px;
+        }
+        
+        .after-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #2ed573, #17a2b8);
+            opacity: 0.1;
+            border-radius: 0 20px 0 100px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .before-icon {
+            background: linear-gradient(135deg, #ff4757, #c44569);
+        }
+        
+        .after-icon {
+            background: linear-gradient(135deg, #2ed573, #17a2b8);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .section-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .comparison-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .comparison-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .item-emoji {
+            font-size: 1.5rem;
+        }
+        
+        .item-content {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .problem-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .problem-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+        
+        .problem-icon {
+            color: #ff4757;
+            font-weight: bold;
+            min-width: 20px;
+        }
+        
+        .solution-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .solution-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+        
+        .solution-icon {
+            color: #2ed573;
+            font-weight: bold;
+            min-width: 20px;
+        }
+        
+        .arrow-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+        
+        .arrow {
+            font-size: 3rem;
+            color: #667eea;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .metrics-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 50px;
+        }
+        
+        .metrics-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 35px;
+            color: #333;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .metric-before {
+            background: linear-gradient(135deg, #ff6b7a, #c44569);
+            color: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .metric-after {
+            background: linear-gradient(135deg, #2ed573, #17a2b8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .metric-name {
+            font-weight: bold;
+            color: #333;
+            margin: 15px 0 10px;
+        }
+        
+        .stakeholder-comparison {
+            margin-top: 40px;
+        }
+        
+        .stakeholder-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .stakeholder-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .stakeholder-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stakeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .stakeholder-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .experience-before, .experience-after {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .experience-before {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            color: #c62828;
+        }
+        
+        .experience-after {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            color: #2e7d32;
+        }
+        
+        @media (max-width: 1200px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .arrow-section {
+                height: auto;
+                padding: 20px;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stakeholder-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Before / After 比較</h1>
+            <p class="subtitle">よりそい導入による医療現場の変化</p>
+        </div>
+        
+        <div class="comparison-container">
+            <div class="before-section">
+                <div class="section-header">
+                    <div class="section-icon before-icon">😰</div>
+                    <div>
+                        <div class="section-title">BEFORE</div>
+                        <div class="section-subtitle">従来の医療コミュニケーション</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="item-title">
+                        <span class="item-emoji">🏥</span>
+                        診察中の患者
+                    </div>
+                    <div class="item-content">
+                        メモを取ることに必死で、医師の説明に集中できない。専門用語が理解できず、質問するタイミングも分からない。
+                    </div>
+                    <ul class="problem-list">
+                        <li><span class="problem-icon">✗</span>聞き漏らしが多い</li>
+                        <li><span class="problem-icon">✗</span>メモが追いつかない</li>
+                        <li><span class="problem-icon">✗</span>専門用語が分からない</li>
+                        <li><span class="problem-icon">✗</span>質問を忘れる</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="item-title">
+                        <span class="item-emoji">👨‍⚕️</span>
+                        医療従事者
+                    </div>
+                    <div class="item-content">
+                        診察後の記録作業に時間がかかり、患者からの再問い合わせも多い。説明の標準化が難しく、個人差が生じやすい。
+                    </div>
+                    <ul class="problem-list">
+                        <li><span class="problem-icon">✗</span>後書き作業が負担</li>
+                        <li><span class="problem-icon">✗</span>再説明が頻繁</li>
+                        <li><span class="problem-icon">✗</span>説明のバラつき</li>
+                        <li><span class="problem-icon">✗</span>時間の圧迫感</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="item-title">
+                        <span class="item-emoji">👨‍👩‍👧‍👦</span>
+                        家族・介護者
+                    </div>
+                    <div class="item-content">
+                        診察に同席できず、患者からの又聞き情報に頼らざるを得ない。伝言ゲームで情報が歪み、適切なサポートが困難。
+                    </div>
+                    <ul class="problem-list">
+                        <li><span class="problem-icon">✗</span>情報が断片的</li>
+                        <li><span class="problem-icon">✗</span>伝言ゲームで歪む</li>
+                        <li><span class="problem-icon">✗</span>役割分担が不明</li>
+                        <li><span class="problem-icon">✗</span>不安が増大</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="arrow-section">
+                <div class="arrow">→</div>
+            </div>
+            
+            <div class="after-section">
+                <div class="section-header">
+                    <div class="section-icon after-icon">😊</div>
+                    <div>
+                        <div class="section-title">AFTER</div>
+                        <div class="section-subtitle">よりそい導入後</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="item-title">
+                        <span class="item-emoji">🏥</span>
+                        診察中の患者
+                    </div>
+                    <div class="item-content">
+                        音声認識で自動記録されるため、医師の説明に集中できる。診察後に要点3行で内容を確認し、理解を深められる。
+                    </div>
+                    <ul class="solution-list">
+                        <li><span class="solution-icon">✓</span>会話に集中できる</li>
+                        <li><span class="solution-icon">✓</span>要点が明確になる</li>
+                        <li><span class="solution-icon">✓</span>専門用語を解説</li>
+                        <li><span class="solution-icon">✓</span>振り返りが可能</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="item-title">
+                        <span class="item-emoji">👨‍⚕️</span>
+                        医療従事者
+                    </div>
+                    <div class="item-content">
+                        SOAP記録が自動生成され、要点3行の読み上げで患者の理解を確認。再問い合わせが減り、診療効率が大幅に向上。
+                    </div>
+                    <ul class="solution-list">
+                        <li><span class="solution-icon">✓</span>記録作業が効率化</li>
+                        <li><span class="solution-icon">✓</span>再問い合わせ減少</li>
+                        <li><span class="solution-icon">✓</span>説明の標準化</li>
+                        <li><span class="solution-icon">✓</span>診療に集中</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="item-title">
+                        <span class="item-emoji">👨‍👩‍👧‍👦</span>
+                        家族・介護者
+                    </div>
+                    <div class="item-content">
+                        セキュアなURLで正確な診察内容を共有。役割分担が明確になり、遠隔でも適切なサポートを提供できる。
+                    </div>
+                    <ul class="solution-list">
+                        <li><span class="solution-icon">✓</span>正確な情報共有</li>
+                        <li><span class="solution-icon">✓</span>同じ理解で統一</li>
+                        <li><span class="solution-icon">✓</span>役割分担明確</li>
+                        <li><span class="solution-icon">✓</span>安心感の向上</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="metrics-section">
+            <h2 class="metrics-title">📊 数値で見る改善効果</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-before">
+                        <div class="metric-value">40%</div>
+                        <div class="metric-label">診察内容の理解不足</div>
+                    </div>
+                    <div class="metric-after">
+                        <div class="metric-value">90%</div>
+                        <div class="metric-label">理解度向上</div>
+                    </div>
+                    <div class="metric-name">患者の理解度</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-before">
+                        <div class="metric-value">30分</div>
+                        <div class="metric-label">診察後の記録作業</div>
+                    </div>
+                    <div class="metric-after">
+                        <div class="metric-value">10分</div>
+                        <div class="metric-label">自動化により短縮</div>
+                    </div>
+                    <div class="metric-name">記録作業時間</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-before">
+                        <div class="metric-value">週15件</div>
+                        <div class="metric-label">再問い合わせ</div>
+                    </div>
+                    <div class="metric-after">
+                        <div class="metric-value">週5件</div>
+                        <div class="metric-label">67%削減</div>
+                    </div>
+                    <div class="metric-name">再問い合わせ数</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-before">
+                        <div class="metric-value">20%</div>
+                        <div class="metric-label">家族の情報把握度</div>
+                    </div>
+                    <div class="metric-after">
+                        <div class="metric-value">80%</div>
+                        <div class="metric-label">共有により大幅改善</div>
+                    </div>
+                    <div class="metric-name">家族の情報共有</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-before">
+                        <div class="metric-value">60%</div>
+                        <div class="metric-label">服薬アドヒアランス</div>
+                    </div>
+                    <div class="metric-after">
+                        <div class="metric-value">85%</div>
+                        <div class="metric-label">理解向上で改善</div>
+                    </div>
+                    <div class="metric-name">治療継続率</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-before">
+                        <div class="metric-value">3.2</div>
+                        <div class="metric-label">患者満足度スコア</div>
+                    </div>
+                    <div class="metric-after">
+                        <div class="metric-value">4.7</div>
+                        <div class="metric-label">大幅な満足度向上</div>
+                    </div>
+                    <div class="metric-name">患者満足度（5点満点）</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stakeholder-comparison">
+            <h2 class="stakeholder-title">👥 ステークホルダー別の変化</h2>
+            <div class="stakeholder-grid">
+                <div class="stakeholder-card">
+                    <span class="stakeholder-icon">🏥</span>
+                    <div class="stakeholder-name">患者</div>
+                    <div class="experience-before">
+                        😰「何を言われたか分からない...」<br>
+                        不安・混乱・諦め
+                    </div>
+                    <div class="experience-after">
+                        😊「よく分かった！家族にも説明できる」<br>
+                        理解・安心・自信
+                    </div>
+                </div>
+                
+                <div class="stakeholder-card">
+                    <span class="stakeholder-icon">👨‍⚕️</span>
+                    <div class="stakeholder-name">医療従事者</div>
+                    <div class="experience-before">
+                        😤「また同じ質問の電話が...」<br>
+                        疲労・非効率・ストレス
+                    </div>
+                    <div class="experience-after">
+                        😌「説明が確実に伝わった」<br>
+                        効率化・満足・集中
+                    </div>
+                </div>
+                
+                <div class="stakeholder-card">
+                    <span class="stakeholder-icon">👨‍👩‍👧‍👦</span>
+                    <div class="stakeholder-name">家族・介護者</div>
+                    <div class="experience-before">
+                        😔「結局、何を気をつければ...」<br>
+                        困惑・不安・無力感
+                    </div>
+                    <div class="experience-after">
+                        😊「私の役割が明確！一緒に支えられる」<br>
+                        協力・安心・積極性
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
