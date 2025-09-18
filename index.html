@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>よりそい 資料インデックス</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #222;
+      --muted: #6b7280;
+      --accent: #6366f1;
+      --accent-2: #22c55e;
+      --radius: 14px;
+      --shadow: 0 8px 24px rgba(0,0,0,.08);
+      --shadow-hover: 0 12px 28px rgba(0,0,0,.12);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1020;
+        --card: #121a2e;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --accent: #818cf8;
+        --accent-2: #4ade80;
+        --shadow: 0 8px 24px rgba(0,0,0,.4);
+        --shadow-hover: 0 12px 28px rgba(0,0,0,.5);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(135deg, var(--bg), #eef2ff 40%, var(--bg) 100%);
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      padding: 24px;
+    }
+    .wrap {
+      width: min(980px, 100%);
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 3vw, 32px);
+      border: 1px solid rgba(99,102,241,.12);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(20px, 3.6vw, 28px);
+      margin: 0 0 6px;
+      line-height: 1.2;
+      letter-spacing: .02em;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    /* Button-like link */
+    .link {
+      --ring: 0 0 0 0 rgba(99,102,241,.35);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      background: linear-gradient(180deg, var(--card), color-mix(in oklab, var(--card) 85%, #000 15%));
+      border: 1px solid color-mix(in oklab, var(--card) 80%, #000 20%);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+      position: relative;
+      isolation: isolate;
+    }
+    .link:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: color-mix(in oklab, var(--accent) 50%, #000 20%);
+    }
+    .link:focus-visible {
+      outline: none;
+      box-shadow: var(--shadow-hover), 0 0 0 4px color-mix(in oklab, var(--accent) 35%, #fff 65%);
+    }
+    .icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      font-size: 22px;
+      background: color-mix(in oklab, var(--accent) 25%, var(--card));
+      color: #fff;
+      flex: none;
+    }
+    .txt { display: grid; gap: 2px; }
+    .ttl { font-weight: 700; font-size: 15px; letter-spacing: .01em; }
+    .sub { font-size: 12px; color: var(--muted); }
+
+    footer {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .note {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: color-mix(in oklab, var(--card) 80%, #000 20%);
+      border: 1px dashed color-mix(in oklab, var(--muted) 40%, #000 10%);
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <header>
+      <h1>よりそい｜資料インデックス</h1>
+      <p class="lead">5つの図版へアクセスできます（新しいタブで開きます）</p>
+    </header>
+
+    <nav class="grid" aria-label="資料一覧">
+      <a class="link" href="./before_after_comparison.html" target="_blank" rel="noopener noreferrer" aria-label="Before/After比較図を開く">
+        <span class="icon" aria-hidden="true">↔️</span>
+        <span class="txt">
+          <span class="ttl">Before/After 比較図</span>
+          <span class="sub">導入前後の変化を一目で</span>
+        </span>
+      </a>
+
+      <a class="link" href="./function_explanation_diagram.html" target="_blank" rel="noopener noreferrer" aria-label="機能説明図を開く">
+        <span class="icon" aria-hidden="true">⚙️</span>
+        <span class="txt">
+          <span class="ttl">機能説明図</span>
+          <span class="sub">中核機能の概要</span>
+        </span>
+      </a>
+
+      <a class="link" href="./service_concept_diagram.html" target="_blank" rel="noopener noreferrer" aria-label="サービス概念図を開く">
+        <span class="icon" aria-hidden="true">🧭</span>
+        <span class="txt">
+          <span class="ttl">サービス概念図</span>
+          <span class="sub">全体像と価値</span>
+        </span>
+      </a>
+
+      <a class="link" href="./system_architecture_diagram.html" target="_blank" rel="noopener noreferrer" aria-label="システム構成図を開く">
+        <span class="icon" aria-hidden="true">🏗️</span>
+        <span class="txt">
+          <span class="ttl">システム構成図</span>
+          <span class="sub">技術スタックと構成</span>
+        </span>
+      </a>
+
+      <a class="link" href="./user_journey_diagram.html" target="_blank" rel="noopener noreferrer" aria-label="ユーザージャーニー図を開く">
+        <span class="icon" aria-hidden="true">🗺️</span>
+        <span class="txt">
+          <span class="ttl">ユーザージャーニー図</span>
+          <span class="sub">診察前後の体験フロー</span>
+        </span>
+      </a>
+    </nav>
+
+    <footer>
+      <div class="note">※ 同じフォルダに各HTML（5ファイル）とこの index.html を置いてください。</div>
+    </footer>
+  </main>
+</body>
+</html>
