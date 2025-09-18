@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よりそい - 機能説明図</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+        }
+        
+        .function-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .function-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .function-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            font-size: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .function-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+        
+        .voice-recognition {
+            border-left-color: #4CAF50;
+        }
+        .voice-recognition::before { content: '🎤'; }
+        
+        .ai-summary {
+            border-left-color: #2196F3;
+        }
+        .ai-summary::before { content: '🤖'; }
+        
+        .consent-management {
+            border-left-color: #FF9800;
+        }
+        .consent-management::before { content: '🔐'; }
+        
+        .family-sharing {
+            border-left-color: #E91E63;
+        }
+        .family-sharing::before { content: '👨‍👩‍👧‍👦'; }
+        
+        .function-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .function-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .icon-green { background: linear-gradient(135deg, #4CAF50, #45a049); }
+        .icon-blue { background: linear-gradient(135deg, #2196F3, #1976D2); }
+        .icon-orange { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .icon-pink { background: linear-gradient(135deg, #E91E63, #C2185B); }
+        
+        .function-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .check-icon {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .process-flow {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 40px;
+        }
+        
+        .process-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 35px;
+            color: #333;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+        }
+        
+        .flow-step {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .flow-step:hover {
+            transform: scale(1.05);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            font-size: 1.2rem;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .step-desc {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .tech-specs {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        
+        .specs-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 35px;
+            color: #333;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .spec-item {
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .spec-item:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+        
+        .spec-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .spec-icon {
+            font-size: 1.8rem;
+        }
+        
+        .spec-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .spec-detail {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .function-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-diagram {
+                flex-direction: column;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">機能説明図</h1>
+            <p class="subtitle">よりそいの核となる4つの主要機能</p>
+        </div>
+        
+        <div class="function-grid">
+            <div class="function-card voice-recognition">
+                <div class="function-content">
+                    <div class="function-title">
+                        <span class="function-icon icon-green">🎤</span>
+                        音声認識システム
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">
+                        医療特化の音声認識エンジンで、診察中の会話をリアルタイムに文字起こし。専門用語も高精度で認識します。
+                    </p>
+                    <ul class="feature-list">
+                        <li><span class="check-icon">✓</span> 医療専門用語対応（精度78%→92%向上）</li>
+                        <li><span class="check-icon">✓</span> リアルタイム文字表示</li>
+                        <li><span class="check-icon">✓</span> 雑音除去・音質最適化</li>
+                        <li><span class="check-icon">✓</span> 多言語対応（日本語・英語・中国語など）</li>
+                        <li><span class="check-icon">✓</span> 話者識別（医師・患者・家族）</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="function-card ai-summary">
+                <div class="function-content">
+                    <div class="function-title">
+                        <span class="function-icon icon-blue">🤖</span>
+                        AI要約エンジン
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">
+                        大規模言語モデルを活用し、診察内容を「要点3行」に自動要約。医療者・患者それぞれに最適化された内容を生成。
+                    </p>
+                    <ul class="feature-list">
+                        <li><span class="check-icon">✓</span> 医療者向けSOAP形式自動整形</li>
+                        <li><span class="check-icon">✓</span> 患者向けやさしい日本語変換</li>
+                        <li><span class="check-icon">✓</span> 重要度に応じた情報階層化</li>
+                        <li><span class="check-icon">✓</span> 次回確認事項の自動抽出</li>
+                        <li><span class="check-icon">✓</span> 専門用語の自動解説付与</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="function-card consent-management">
+                <div class="function-content">
+                    <div class="function-title">
+                        <span class="function-icon icon-orange">🔐</span>
+                        同意管理システム
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">
+                        録音・共有の同意を三層で管理。透明性を保ちながら、患者のプライバシーを最大限保護します。
+                    </p>
+                    <ul class="feature-list">
+                        <li><span class="check-icon">✓</span> 三層同意（録音・院内・家族共有）</li>
+                        <li><span class="check-icon">✓</span> リアルタイム同意状態表示</li>
+                        <li><span class="check-icon">✓</span> ワンクリック同意変更・取り消し</li>
+                        <li><span class="check-icon">✓</span> 監査ログ自動生成</li>
+                        <li><span class="check-icon">✓</span> アクセス履歴の双方向可視化</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="function-card family-sharing">
+                <div class="function-content">
+                    <div class="function-title">
+                        <span class="function-icon icon-pink">👨‍👩‍👧‍👦</span>
+                        家族共有機能
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">
+                        セキュアなURLで家族・介護者と情報共有。期限・範囲・アクセス権を細かく制御できます。
+                    </p>
+                    <ul class="feature-list">
+                        <li><span class="check-icon">✓</span> 期限付きセキュアURL発行</li>
+                        <li><span class="check-icon">✓</span> 共有範囲の個別設定</li>
+                        <li><span class="check-icon">✓</span> 既読状況のリアルタイム確認</li>
+                        <li><span class="check-icon">✓</span> 役割分担機能（誰が何をいつまで）</li>
+                        <li><span class="check-icon">✓</span> 緊急時即時失効機能</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-flow">
+            <h2 class="process-title">🔄 処理フロー</h2>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">同意取得</div>
+                    <div class="step-desc">録音・共有の三層同意を明示的に取得</div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">音声収録</div>
+                    <div class="step-desc">診察中の会話をリアルタイムで音声認識</div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">AI処理</div>
+                    <div class="step-desc">医療特化AIで内容を要約・構造化</div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">確認・承認</div>
+                    <div class="step-desc">医師による要点3行の読み上げ確認</div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">セキュア共有</div>
+                    <div class="step-desc">期限付きURLで家族・関係者と共有</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tech-specs">
+            <h2 class="specs-title">🛠️ 技術仕様</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-header">
+                        <span class="spec-icon">🔊</span>
+                        <span class="spec-name">音声処理</span>
+                    </div>
+                    <div class="spec-detail">
+                        • Google Speech-to-Text API（医療特化）<br>
+                        • サンプリングレート: 16kHz以上<br>
+                        • 対応フォーマット: WAV, MP3, FLAC<br>
+                        • レイテンシ: 100ms以下
+                    </div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-header">
+                        <span class="spec-icon">🤖</span>
+                        <span class="spec-name">AI要約</span>
+                    </div>
+                    <div class="spec-detail">
+                        • Gemini 2.5 Flash-Lite<br>
+                        • 入力制限: 100万トークン<br>
+                        • 応答時間: 3秒以内<br>
+                        • 精度: 医療専門用語92%以上
+                    </div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-header">
+                        <span class="spec-icon">🔐</span>
+                        <span class="spec-name">セキュリティ</span>
+                    </div>
+                    <div class="spec-detail">
+                        • 暗号化: AES-256<br>
+                        • 認証: OAuth 2.0<br>
+                        • データ保存: 30日間<br>
+                        • 監査ログ: 5年間保存
+                    </div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-header">
+                        <span class="spec-icon">☁️</span>
+                        <span class="spec-name">インフラ</span>
+                    </div>
+                    <div class="spec-detail">
+                        • Google Cloud Platform<br>
+                        • 可用性: 99.9%<br>
+                        • 自動スケーリング対応<br>
+                        • 東京リージョン配備
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
