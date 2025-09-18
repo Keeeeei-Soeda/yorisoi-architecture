@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よりそい - サービス概念図</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .diagram-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #2196F3);
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .main-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .flow-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .step-circle:hover {
+            transform: scale(1.1);
+        }
+        
+        .step1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .step2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .step3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .step-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .arrow {
+            position: absolute;
+            top: 60px;
+            font-size: 2rem;
+            color: #999;
+            z-index: 1;
+        }
+        
+        .arrow1 { left: 27%; }
+        .arrow2 { left: 67%; }
+        
+        .participants {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .participant {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .participant:hover {
+            transform: translateY(-10px);
+        }
+        
+        .participant-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .participant-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .participant-benefits {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .tech-features {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .tech-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .tech-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .data-flow {
+            position: relative;
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 2px dashed #ddd;
+        }
+        
+        .data-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        
+        .data-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .data-step {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px 5px;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .data-step:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .main-flow {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .arrow {
+                display: none;
+            }
+            
+            .participants {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .data-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <h1 class="title">よりそい サービス概念図</h1>
+        <p class="subtitle">診察の「わからない」を「わかった！」に変える医療コミュニケーション支援</p>
+        
+        <div class="main-flow">
+            <div class="flow-step">
+                <div class="step-circle step1">🎤</div>
+                <div class="step-title">音声認識</div>
+                <div class="step-desc">診察中の会話を<br>リアルタイムで<br>文字起こし</div>
+            </div>
+            <div class="arrow arrow1">→</div>
+            
+            <div class="flow-step">
+                <div class="step-circle step2">🤖</div>
+                <div class="step-title">AI要約</div>
+                <div class="step-desc">診察内容を<br>「要点3行」に<br>自動要約</div>
+            </div>
+            <div class="arrow arrow2">→</div>
+            
+            <div class="flow-step">
+                <div class="step-circle step3">🔗</div>
+                <div class="step-title">安全共有</div>
+                <div class="step-desc">家族・介護者と<br>セキュアに<br>情報共有</div>
+            </div>
+        </div>
+        
+        <div class="participants">
+            <div class="participant">
+                <span class="participant-icon">👨‍⚕️</span>
+                <div class="participant-title">医療従事者</div>
+                <div class="participant-benefits">
+                    • 後書き作業の効率化<br>
+                    • 再問い合わせの削減<br>
+                    • 説明品質の向上<br>
+                    • 診療時間の有効活用
+                </div>
+            </div>
+            
+            <div class="participant">
+                <span class="participant-icon">🏥</span>
+                <div class="participant-title">患者</div>
+                <div class="participant-benefits">
+                    • 診察内容の理解向上<br>
+                    • 聞き漏らし防止<br>
+                    • 家族への説明が楽<br>
+                    • 不安の軽減
+                </div>
+            </div>
+            
+            <div class="participant">
+                <span class="participant-icon">👨‍👩‍👧‍👦</span>
+                <div class="participant-title">家族・介護者</div>
+                <div class="participant-benefits">
+                    • 正確な情報共有<br>
+                    • 役割分担の明確化<br>
+                    • 遠隔での見守り<br>
+                    • 介護負担の軽減
+                </div>
+            </div>
+        </div>
+        
+        <div class="data-flow">
+            <div class="data-title">🔒 データフローとセキュリティ</div>
+            <div class="data-steps">
+                <div class="data-step">同意取得</div>
+                <div class="data-step">音声収録</div>
+                <div class="data-step">AI処理</div>
+                <div class="data-step">要約生成</div>
+                <div class="data-step">共有URL発行</div>
+                <div class="data-step">アクセス管理</div>
+            </div>
+        </div>
+        
+        <div class="tech-features">
+            <div class="tech-title">🚀 技術的特長</div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <span class="tech-icon">🔊</span>
+                    <strong>医療特化STT</strong><br>
+                    専門用語対応
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">🔐</span>
+                    <strong>三層同意管理</strong><br>
+                    録音・院内・家族
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">📱</span>
+                    <strong>マルチプラットフォーム</strong><br>
+                    Web・iOS・Android
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">🌐</span>
+                    <strong>多言語対応</strong><br>
+                    リアルタイム翻訳
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">💾</span>
+                    <strong>クラウド保存</strong><br>
+                    30日間安全管理
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">📊</span>
+                    <strong>分析レポート</strong><br>
+                    利用統計・改善提案
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
