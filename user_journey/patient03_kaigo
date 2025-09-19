@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ペルソナ資料：久美さん</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .persona-sheet {
+            max-width: 297mm; /* A4 width */
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .persona-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+        
+        .persona-info {
+            flex: 1;
+        }
+        
+        .persona-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .persona-title {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .persona-summary {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .family-structure {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-left: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .family-member {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .member-icon {
+            font-size: 1.5rem;
+        }
+        
+        /* Main Content */
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            border-left: 5px solid;
+        }
+        
+        .background-section { border-left-color: #667eea; }
+        .problems-section { border-left-color: #ff6b6b; }
+        .shadow-section { border-left-color: #ffa726; }
+        .solution-section { border-left-color: #4caf50; }
+        .value-section { border-left-color: #9c27b0; }
+        .advocacy-section { border-left-color: #2196f3; }
+        .special-section { border-left-color: #ff9800; }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-icon {
+            font-size: 1.5rem;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        
+        .four-column {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .card-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-content {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .problem-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .problem-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #555;
+        }
+        
+        .problem-icon {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .solution-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .solution-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #555;
+        }
+        
+        .solution-icon {
+            color: #4caf50;
+            font-weight: bold;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .journey-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .journey-step {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            margin: 0 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .step-emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .step-desc {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .arrow-right {
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #4caf50;
+            z-index: 1;
+        }
+        
+        .journey-step:last-child .arrow-right {
+            display: none;
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .quote-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            font-style: italic;
+        }
+        
+        .quote-author {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 2px 4px 2px 0;
+        }
+        
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .scenario-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .scenario-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .scenario-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .scenario-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .care-network {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .network-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .network-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .network-node {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .center-node {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            font-size: 1.1rem;
+            padding: 15px 20px;
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .example-content {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 1200px) {
+            .two-column, .three-column, .four-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .journey-timeline {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .journey-step {
+                margin: 0;
+            }
+            
+            .arrow-right {
+                display: none;
+            }
+            
+            .scenario-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .family-structure {
+                margin: 20px 0 0 0;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .persona-sheet {
+                box-shadow: none;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="persona-sheet">
+        <!-- Header -->
+        <div class="header">
+            <div class="persona-avatar">👩‍🦳</div>
+            <div class="persona-info">
+                <h1 class="persona-name">久美さん</h1>
+                <div class="persona-title">45歳・主介護者</div>
+                <div class="persona-summary">
+                    母74歳（心不全＋糖尿病＋整形）の主介護者<br>
+                    ケアマネ・デイサービス・薬局・複数診療科を束ねる"ハブ"<br>
+                    平日9-18時勤務、受診同席できない回が多い
+                </div>
+            </div>
+            <div class="family-structure">
+                <div class="family-member">
+                    <span class="member-icon">👵</span>
+                    <span>母74歳（軽度認知症）</span>
+                </div>
+                <div class="family-member">
+                    <span class="member-icon">👨</span>
+                    <span>兄弟（遠方在住）</span>
+                </div>
+                <div class="family-member">
+                    <span class="member-icon">👩‍⚕️</span>
+                    <span>ケアマネ・デイサービス</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 背景・役割 -->
+            <div class="section background-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🏠</span>
+                    介護者としての役割と背景
+                </h2>
+                <div class="three-column">
+                    <div class="info-card">
+                        <div class="card-title">🎯 主介護者の役割</div>
+                        <div class="card-content">
+                            ケアマネ・デイサービス・薬局・複数診療科を束ねる<span class="highlight">"ハブ"</span><br>
+                            兄弟は遠方で、実質的な介護責任者
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card" style="margin-top: 20px;">
+                    <div class="card-title">🎯 介護者コミュニティでの共感ポイント</div>
+                    <div class="card-content">
+                        「<span class="highlight">同席できなくても安心</span>」「<span class="highlight">家族全員が同じ理解</span>」「<span class="highlight">ケアマネとの連携がスムーズ</span>」など、<br>
+                        介護者特有の困りごとを解決する体験が、<strong>口コミで自然に広がる</strong>。<br>
+                        特に認知症介護や遠距離介護の当事者には、<span class="highlight">即座に価値を理解</span>してもらえる。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">👵 母の特性</div>
+                        <div class="card-content">
+                            軽度認知症により<br>
+                            <span class="highlight">短く・繰り返し・見える化</span>が必須<br>
+                            複雑な指示は理解困難
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">💼 働き方制約</div>
+                        <div class="card-content">
+                            平日9-18時勤務<br>
+                            受診に<span class="highlight">同席できない</span>回が多い<br>
+                            夜間・週末の判断責任
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="care-network">
+                    <div class="network-title">🔗 介護ネットワーク（久美さんが調整）</div>
+                    <div class="network-diagram">
+                        <div class="network-node">内科医</div>
+                        <div class="network-node">循環器科</div>
+                        <div class="network-node">整形外科</div>
+                        <div class="center-node">久美さん</div>
+                        <div class="network-node">ケアマネ</div>
+                        <div class="network-node">デイサービス</div>
+                        <div class="network-node">薬局</div>
+                        <div class="network-node">兄弟</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 日常の困りごと -->
+            <div class="section problems-section">
+                <h2 class="section-title">
+                    <span class="section-icon">😰</span>
+                    介護者の深刻な困りごと
+                </h2>
+                <div class="two-column">
+                    <div class="info-card">
+                        <div class="card-title">📋 情報の分散・混乱</div>
+                        <ul class="problem-list">
+                            <li><span class="problem-icon">✗</span>指示が診療科ごとに分散（内科／循環器／整形／眼科）</li>
+                            <li><span class="problem-icon">✗</span>家族LINEで調整しても合意がまとまりにくい</li>
+                            <li><span class="problem-icon">✗</span>カレンダー・Excel・紙に分裂「どれが最新？」</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">⚠️ 判断負荷の重さ</div>
+                        <ul class="problem-list">
+                            <li><span class="problem-icon">✗</span>悪化サインの閾値が曖昧（体重何kg増？呼吸何回/分？）</li>
+                            <li><span class="problem-icon">✗</span>夜間・週末の判断責任が重い</li>
+                            <li><span class="problem-icon">✗</span>「緊急性」の判断基準が不明確</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="scenario-grid">
+                    <div class="scenario-card">
+                        <span class="scenario-emoji">🏥</span>
+                        <div class="scenario-title">同席できない受診</div>
+                        <div class="scenario-desc">母の説明が伝言ゲーム化<br>ニュアンスが消える</div>
+                    </div>
+                    <div class="scenario-card">
+                        <span class="scenario-emoji">💬</span>
+                        <div class="scenario-title">情報の変換・劣化</div>
+                        <div class="scenario-desc">「お水はちょっと減らす」<br>→量は？期間は？</div>
+                    </div>
+                    <div class="scenario-card">
+                        <span class="scenario-emoji">👥</span>
+                        <div class="scenario-title">役割分担の遅れ</div>
+                        <div class="scenario-desc">受診後すぐに兄弟で<br>分担を決められない</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 現在の代替手段 -->
+            <div class="section shadow-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📝</span>
+                    疲弊する代替手段
+                </h2>
+                <div class="three-column">
+                    <div class="info-card">
+                        <div class="card-title">📞 電話→議事録化</div>
+                        <div class="card-content">
+                            母からの電話を<span class="highlight">議事録化</span><br>
+                            →兄弟へメール送付<br>
+                            精度低下・時間負担大
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">📋 アナログ管理</div>
+                        <div class="card-content">
+                            家の壁に<span class="highlight">服薬カレンダー</span><br>
+                            冷蔵庫に<span class="highlight">注意サインの手書きメモ</span><br>
+                            更新漏れ・見落としリスク
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">📧 長文メール・電話</div>
+                        <div class="card-content">
+                            ケアマネに<span class="highlight">長文メール</span><br>
+                            薬局へ<span class="highlight">問い合わせ電話</span><br>
+                            業務時間と重複し疲弊
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- よりそい体験 -->
+            <div class="section solution-section">
+                <h2 class="section-title">
+                    <span class="section-icon">✨</span>
+                    「よりそい」による介護負担軽減
+                </h2>
+                <div class="journey-timeline">
+                    <div class="journey-step">
+                        <span class="step-emoji">🔗</span>
+                        <div class="step-title">診前</div>
+                        <div class="step-desc">受付QRで録音同意可視化<br>母一人でも安心</div>
+                        <div class="arrow-right">→</div>
+                    </div>
+                    <div class="journey-step">
+                        <span class="step-emoji">🎤</span>
+                        <div class="step-title">診中</div>
+                        <div class="step-desc">録音インジケータで<br>"ちゃんと残る"安心感</div>
+                        <div class="arrow-right">→</div>
+                    </div>
+                    <div class="journey-step">
+                        <span class="step-emoji">📋</span>
+                        <div class="step-title">診後</div>
+                        <div class="step-desc">AI要点3行＋<br>小さな宿題生成</div>
+                        <div class="arrow-right">→</div>
+                    </div>
+                    <div class="journey-step">
+                        <span class="step-emoji">🔗</span>
+                        <div class="step-title">共有</div>
+                        <div class="step-desc">家族URL→兄・ケアマネ<br>再説明ほぼ不要</div>
+                        <div class="arrow-right">→</div>
+                    </div>
+                    <div class="journey-step">
+                        <span class="step-emoji">👥</span>
+                        <div class="step-title">分担</div>
+                        <div class="step-desc">URLを見ながら<br>役割分担を即合意</div>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">📋 心不全診察後の要点3行（例）</div>
+                    <div class="example-content">
+                        <strong>1.</strong> <span class="highlight">体重＋2kg/週</span>で受診先へ連絡<br>
+                        <strong>2.</strong> <span class="highlight">塩分6g/日</span>を目安に<br>
+                        <strong>3.</strong> <span class="highlight">夕方のむくみ</span>は写真で記録<br><br>
+                        <strong>小さな宿題：</strong>「朝夕の体重を1週間メモ」
+                    </div>
+                </div>
+
+                <div class="quote-box">
+                    <div class="quote-text">「3行で母の"次にやること"が分かるから、夜の判断が少し軽くなった。」</div>
+                    <div class="quote-author">— 久美さんの第一声</div>
+                </div>
+            </div>
+
+            <!-- 継続利用の価値 -->
+            <div class="section value-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🔄</span>
+                    介護運用が劇的に改善する理由
+                </h2>
+                <div class="two-column">
+                    <div class="info-card">
+                        <div class="card-title">🌐 ネットワーク連携の効率化</div>
+                        <ul class="solution-list">
+                            <li><span class="solution-icon">✓</span>ケアマネ・デイ・薬局へ同じ家族URLを転送</li>
+                            <li><span class="solution-icon">✓</span>必要最小限の情報を自動共有</li>
+                            <li><span class="solution-icon">✓</span>長文メールと電話が大幅減少</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">🔗 診療の連続性確保</div>
+                        <ul class="solution-list">
+                            <li><span class="solution-icon">✓</span>前回の3行が次回冒頭に表示</li>
+                            <li><span class="solution-icon">✓</span>診療が"続き"から始まる</li>
+                            <li><span class="solution-icon">✓</span>薬・検査・予定が1画面で完結</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-card" style="margin-top: 20px;">
+                    <div class="card-title">⚖️ 運用の標準化によるストレス軽減</div>
+                    <div class="card-content">
+                        受診のたびに<span class="highlight">「録音→要点3行→家族URL」の同じ作法</span>で回せるため、<strong>運用の迷いがなくなる</strong>。<br>
+                        紙束や写真ロールを探し回る負担から解放され、<span class="highlight">判断に必要な情報が常に手元</span>にある状態を実現。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 特別パターン：第三者付き添い -->
+            <div class="section special-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🤝</span>
+                    第三者付き添い時の価値
+                </h2>
+                <div class="four-column">
+                    <div class="info-card">
+                        <div class="card-title">📱 起動だけで価値</div>
+                        <div class="card-content">
+                            付き添いの方は<span class="highlight">起動して録音</span>するだけ<br>
+                            メモ取りに追われず患者サポートに集中
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">🔗 後から一括共有</div>
+                        <div class="card-content">
+                            要点3行が生成され<br>
+                            <span class="highlight">家族URLをワンタップ</span>で家族・ケアマネへ送付
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">👵 患者の負担軽減</div>
+                        <div class="card-content">
+                            認知機能に不安があっても<br>
+                            <span class="highlight">覚え続ける負荷</span>が下がる
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">😌 現場の落ち着き</div>
+                        <div class="card-content">
+                            「あとで要点が残る」安心感で<br>
+                            <span class="highlight">聞き返しや長いやり取り</span>が減る
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 口コミ・紹介理由 -->
+            <div class="section advocacy-section">
+                <h2 class="section-title">
+                    <span class="section-icon">💬</span>
+                    介護コミュニティ・家族会への紹介理由
+                </h2>
+                <div class="three-column">
+                    <div class="info-card">
+                        <div class="card-title">🌐 遠方介護の救済</div>
+                        <div class="card-content">
+                            <span class="highlight">"遠方介護の置いてけぼり"が消える</span>体験は、同じ立場の人に強く刺さる<br>
+                            同席できない不安の解消
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">📊 判断不安の軽減</div>
+                        <div class="card-content">
+                            <span class="highlight">「注意サインが数字で」見える</span><br>
+                            「小さな宿題」がある<br>
+                            夜間・週末の不安が和らぐ
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-title">🔄 施設からの逆紹介</div>
+                        <div class="card-content">
+                            ケアマネ側にも<span class="highlight">連絡の省力化メリット</span>があるため<br>
+                            <strong>施設・事業所から逆紹介</strong>が自然に起きる
+                        </div>
