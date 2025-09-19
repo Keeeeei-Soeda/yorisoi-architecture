@@ -584,10 +584,9 @@
                 </h2>
                 <div class="three-column">
                     <div class="info-card">
-                        <div class="card-title">📞 電話→議事録化</div>
+                        <div class="card-title">📞 電話→メモ</div>
                         <div class="card-content">
-                            母からの電話を<span class="highlight">議事録化</span><br>
-                            →兄弟へメール送付<br>
+                            母からの電話を<span class="highlight">メモして記録</span><br>
                             精度低下・時間負担大
                         </div>
                     </div>
@@ -596,6 +595,7 @@
                         <div class="card-content">
                             家の壁に<span class="highlight">服薬カレンダー</span><br>
                             冷蔵庫に<span class="highlight">注意サインの手書きメモ</span><br>
+                            付箋に<span class="highlight">先生に言われたことのメモ</span><br>
                             更新漏れ・見落としリスク
                         </div>
                     </div>
