@@ -68,11 +68,32 @@
       font-size: 14px;
     }
 
+    .section {
+      margin-top: 18px;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: .02em;
+      margin: 6px 0 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      display: inline-block;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 14px;
-      margin-top: 18px;
+      margin-top: 8px;
     }
 
     /* Button-like link */
@@ -136,53 +157,88 @@
   <main class="wrap" role="main">
     <header>
       <h1>よりそい｜資料インデックス</h1>
-      <p class="lead">5つの図版へアクセスできます（新しいタブで開きます）</p>
+      <p class="lead">図版・ページへアクセスできます（新しいタブで開きます）</p>
     </header>
 
-    <nav class="grid" aria-label="資料一覧">
-      <a class="link" href="./compare_gaiyou.html" target="_blank" rel="noopener noreferrer" aria-label="Before/After比較図を開く">
-        <span class="icon" aria-hidden="true">↔️</span>
-        <span class="txt">
-          <span class="ttl">Before/After 比較図</span>
-          <span class="sub">導入前後の変化を一目で</span>
-        </span>
-      </a>
+    <!-- 既存：資料一覧 -->
+    <section class="section" aria-labelledby="sec-docs">
+      <div id="sec-docs" class="section-title">資料一覧</div>
+      <nav class="grid" aria-label="資料一覧">
+        <a class="link" href="./compare_gaiyou.html" target="_blank" rel="noopener noreferrer" aria-label="Before/After比較図を開く">
+          <span class="icon" aria-hidden="true">↔️</span>
+          <span class="txt">
+            <span class="ttl">Before/After 比較図</span>
+            <span class="sub">導入前後の変化を一目で</span>
+          </span>
+        </a>
 
-      <a class="link" href="./service_item.html" target="_blank" rel="noopener noreferrer" aria-label="機能説明図を開く">
-        <span class="icon" aria-hidden="true">⚙️</span>
-        <span class="txt">
-          <span class="ttl">機能説明図</span>
-          <span class="sub">中核機能の概要</span>
-        </span>
-      </a>
+        <a class="link" href="./service_item.html" target="_blank" rel="noopener noreferrer" aria-label="機能説明図を開く">
+          <span class="icon" aria-hidden="true">⚙️</span>
+          <span class="txt">
+            <span class="ttl">機能説明図</span>
+            <span class="sub">中核機能の概要</span>
+          </span>
+        </a>
 
-      <a class="link" href="./system_overview.html" target="_blank" rel="noopener noreferrer" aria-label="サービス概念図を開く">
-        <span class="icon" aria-hidden="true">🧭</span>
-        <span class="txt">
-          <span class="ttl">サービス概念図</span>
-          <span class="sub">全体像と価値</span>
-        </span>
-      </a>
+        <a class="link" href="./system_overview.html" target="_blank" rel="noopener noreferrer" aria-label="サービス概念図を開く">
+          <span class="icon" aria-hidden="true">🧭</span>
+          <span class="txt">
+            <span class="ttl">サービス概念図</span>
+            <span class="sub">全体像と価値</span>
+          </span>
+        </a>
 
-      <a class="link" href="./about_page.html" target="_blank" rel="noopener noreferrer" aria-label="システム構成図を開く">
-        <span class="icon" aria-hidden="true">🏗️</span>
-        <span class="txt">
-          <span class="ttl">システム構成図</span>
-          <span class="sub">技術スタックと構成</span>
-        </span>
-      </a>
+        <a class="link" href="./about_page.html" target="_blank" rel="noopener noreferrer" aria-label="システム構成図を開く">
+          <span class="icon" aria-hidden="true">🏗️</span>
+          <span class="txt">
+            <span class="ttl">システム構成図</span>
+            <span class="sub">技術スタックと構成</span>
+          </span>
+        </a>
 
-      <a class="link" href="./user_journey.html" target="_blank" rel="noopener noreferrer" aria-label="ユーザージャーニー図を開く">
-        <span class="icon" aria-hidden="true">🗺️</span>
-        <span class="txt">
-          <span class="ttl">ユーザージャーニー図</span>
-          <span class="sub">診察前後の体験フロー</span>
-        </span>
-      </a>
-    </nav>
+        <a class="link" href="./user_journey.html" target="_blank" rel="noopener noreferrer" aria-label="ユーザージャーニー図を開く">
+          <span class="icon" aria-hidden="true">🗺️</span>
+          <span class="txt">
+            <span class="ttl">ユーザージャーニー図</span>
+            <span class="sub">診察前後の体験フロー</span>
+          </span>
+        </a>
+      </nav>
+    </section>
+
+    <!-- 追加：こんな患者におすすめ -->
+    <section class="section" aria-labelledby="sec-reco">
+      <div id="sec-reco" class="section-title">こんな患者におすすめ</div>
+      <nav class="grid" aria-label="こんな患者におすすめ">
+        <a class="link" href="./user_journey/patient01_seikatsushukan.html" target="_blank" rel="noopener noreferrer" aria-label="生活習慣病の方向けページを開く">
+          <span class="icon" aria-hidden="true">🩺</span>
+          <span class="txt">
+            <span class="ttl">生活習慣病の方へ</span>
+            <span class="sub">糖尿病・高血圧など、定期通院の前進設計</span>
+          </span>
+        </a>
+
+        <a class="link" href="./user_journey/patient02_kodomo.html" target="_blank" rel="noopener noreferrer" aria-label="小さなお子さんがいる保護者向けページを開く">
+          <span class="icon" aria-hidden="true">👶</span>
+          <span class="txt">
+            <span class="ttl">小さなお子さんがいる保護者の方へ</span>
+            <span class="sub">“泣いても聞き漏れない”安心の3行要約</span>
+          </span>
+        </a>
+
+        <!-- patient03_kaigo は拡張子なしで掲載されていたため、そのまま参照しています -->
+        <a class="link" href="./user_journey/patient03_kaigo" target="_blank" rel="noopener noreferrer" aria-label="介護中のご家族向けページを開く">
+          <span class="icon" aria-hidden="true">🧓</span>
+          <span class="txt">
+            <span class="ttl">介護中のご家族へ</span>
+            <span class="sub">家族共有と“役割決め”がラクになる</span>
+          </span>
+        </a>
+      </nav>
+    </section>
 
     <footer>
-      <div class="note">※ 同じフォルダに各HTML（5ファイル）とこの index.html を置いてください。</div>
+      <div class="note">※ 同じフォルダに各HTML（5ファイル）とこの index.html、また <code>/user_journey</code> 配下に患者向けページ（3ファイル）を配置してください。</div>
     </footer>
   </main>
 </body>
