@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>よりそい - ユーザージャーニー図</title>
+    <title>よりそい - ユーザージャーニーマップ</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             background: rgba(255,255,255,0.95);
             border-radius: 25px;
@@ -30,7 +30,7 @@
         
         .header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
         
         .title {
@@ -49,123 +49,117 @@
             margin-bottom: 30px;
         }
         
-        .journey-container {
-            position: relative;
-        }
-        
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-        
-        .phase {
-            margin-bottom: 80px;
-            position: relative;
-        }
-        
-        .phase-header {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .phase-number {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+        .journey-overview {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-        
-        .phase-title {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .phase-subtitle {
-            color: #666;
-            font-size: 1.1rem;
-        }
-        
-        .journey-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .persona-card {
-            background: white;
             border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
         }
         
-        .persona-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .persona-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-        
-        .patient-card::before { background: linear-gradient(90deg, #4CAF50, #45a049); }
-        .doctor-card::before { background: linear-gradient(90deg, #2196F3, #1976D2); }
-        .family-card::before { background: linear-gradient(90deg, #FF9800, #F57C00); }
-        
-        .persona-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .overview-title {
+            font-size: 1.8rem;
+            font-weight: bold;
             margin-bottom: 20px;
         }
         
-        .persona-icon {
-            font-size: 2.5rem;
+        .phases-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
         }
         
-        .persona-name {
-            font-size: 1.3rem;
+        .phase-bubble {
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            padding: 15px 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .phase-bubble:hover {
+            transform: scale(1.1);
+        }
+        
+        .journey-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr 1fr;
+            gap: 2px;
+            padding: 0;
+        }
+        
+        .header-cell {
+            padding: 20px;
             font-weight: bold;
             color: #333;
-        }
-        
-        .emotion-indicator {
+            text-align: center;
+            background: white;
             display: flex;
             align-items: center;
+            justify-content: center;
+            flex-direction: column;
             gap: 10px;
-            margin-bottom: 15px;
+        }
+        
+        .header-icon {
+            font-size: 2rem;
+        }
+        
+        .phase-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr 1fr;
+            gap: 2px;
+            background: #f0f0f0;
+        }
+        
+        .phase-cell {
+            background: white;
+            padding: 30px;
+            min-height: 400px;
+        }
+        
+        .phase-title {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        
+        .phase-icon {
+            font-size: 3rem;
+        }
+        
+        .persona-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .emotion-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
             padding: 10px;
             border-radius: 10px;
             font-size: 0.9rem;
@@ -174,126 +168,303 @@
         .emotion-before {
             background: linear-gradient(135deg, #ffebee, #ffcdd2);
             color: #c62828;
+            flex: 1;
+            text-align: center;
+            margin-right: 5px;
+            border-radius: 8px;
+            padding: 8px;
         }
         
         .emotion-after {
             background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
             color: #2e7d32;
+            flex: 1;
+            text-align: center;
+            margin-left: 5px;
+            border-radius: 8px;
+            padding: 8px;
+        }
+        
+        .emotion-arrow {
+            color: #667eea;
+            font-weight: bold;
+            margin: 0 8px;
+        }
+        
+        .actions-section {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        
+        .actions-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .actions-list {
             list-style: none;
-            margin-top: 15px;
         }
         
-        .actions-list li {
-            padding: 8px 0;
+        .action-item {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #555;
-            font-size: 0.95rem;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid;
+            transition: transform 0.3s ease;
         }
         
-        .action-icon {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+        .action-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .patient-card .action-item { border-left-color: #4CAF50; }
+        .doctor-card .action-item { border-left-color: #2196F3; }
+        .family-card .action-item { border-left-color: #FF9800; }
+        
+        .action-number {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
+            font-weight: bold;
             flex-shrink: 0;
         }
         
-        .screen-mockup {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 2px dashed #ddd;
-            text-align: center;
+        .action-text {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
         
-        .screen-title {
+        .touchpoint {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid #667eea;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+        }
+        
+        .touchpoint-title {
             font-weight: bold;
-            margin-bottom: 10px;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .touchpoint-desc {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+        
+        .pain-points {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .pain-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #c62828;
+        }
+        
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .pain-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #f44336;
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.2);
+        }
+        
+        .pain-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .pain-icon {
+            color: #f44336;
+            font-size: 1.5rem;
+        }
+        
+        .pain-name {
+            font-weight: bold;
             color: #333;
         }
         
-        .screen-content {
+        .pain-desc {
             color: #666;
-            font-size: 0.9rem;
             line-height: 1.5;
+            font-size: 0.95rem;
         }
         
-        .benefits-section {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        .solutions {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
             border-radius: 20px;
             padding: 40px;
-            margin-top: 50px;
-            text-align: center;
+            margin-bottom: 40px;
         }
         
-        .benefits-title {
-            font-size: 2.2rem;
+        .solution-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #2e7d32;
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .solution-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #4CAF50;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        }
+        
+        .solution-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .solution-icon {
+            color: #4CAF50;
+            font-size: 1.5rem;
+        }
+        
+        .solution-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .solution-desc {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .kpi-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .kpi-title {
+            text-align: center;
+            font-size: 2rem;
             font-weight: bold;
             margin-bottom: 30px;
             color: #333;
         }
         
-        .benefits-grid {
+        .kpi-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 25px;
-            margin-top: 30px;
         }
         
-        .benefit-item {
-            background: white;
+        .kpi-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid;
             transition: transform 0.3s ease;
         }
         
-        .benefit-item:hover {
-            transform: scale(1.05);
+        .kpi-card:hover {
+            transform: translateY(-5px);
         }
         
-        .benefit-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
-        }
+        .kpi-card:nth-child(1) { border-top-color: #4CAF50; }
+        .kpi-card:nth-child(2) { border-top-color: #2196F3; }
+        .kpi-card:nth-child(3) { border-top-color: #FF9800; }
+        .kpi-card:nth-child(4) { border-top-color: #E91E63; }
+        .kpi-card:nth-child(5) { border-top-color: #9C27B0; }
+        .kpi-card:nth-child(6) { border-top-color: #F44336; }
         
-        .benefit-text {
+        .kpi-value {
+            font-size: 2.5rem;
             font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .kpi-label {
             color: #333;
+            font-weight: 600;
             margin-bottom: 8px;
         }
         
-        .benefit-metric {
-            color: #667eea;
-            font-size: 1.2rem;
-            font-weight: bold;
+        .kpi-desc {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 1400px) {
+            .table-header, .phase-row {
+                grid-template-columns: 180px 1fr 1fr 1fr;
+            }
         }
         
         @media (max-width: 1200px) {
-            .journey-grid {
+            .table-header, .phase-row {
                 grid-template-columns: 1fr;
-                gap: 20px;
             }
             
-            .timeline::before {
-                left: 20px;
+            .phase-cell {
+                min-height: auto;
+            }
+            
+            .phases-timeline {
+                flex-direction: column;
+                gap: 15px;
             }
         }
         
         @media (max-width: 768px) {
-            .benefits-grid {
+            .pain-grid, .solution-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .kpi-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -302,483 +473,654 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">ユーザージャーニー図</h1>
-            <p class="subtitle">診察前から診察後まで、全ステークホルダーの体験を可視化</p>
+            <h1 class="title">ユーザージャーニーマップ</h1>
+            <p class="subtitle">よりそい導入による患者・医師・家族の体験変化</p>
         </div>
         
-        <div class="journey-container">
-            <div class="timeline">
-                <!-- 診察前フェーズ -->
-                <div class="phase">
-                    <div class="phase-header">
-                        <div class="phase-number">1</div>
-                        <div class="phase-title">診察前</div>
-                        <div class="phase-subtitle">準備・同意・質問整理</div>
+        <div class="journey-overview">
+            <div class="overview-title">🗺️ 診察プロセス全体の流れ</div>
+            <div class="phases-timeline">
+                <div class="phase-bubble">📋 診察前 (準備)</div>
+                <div class="phase-bubble">🏥 診察中 (記録)</div>
+                <div class="phase-bubble">📄 診察後 (共有)</div>
+                <div class="phase-bubble">📅 フォロー (継続)</div>
+            </div>
+        </div>
+        
+        <div class="journey-table">
+            <div class="table-header">
+                <div class="header-cell">
+                    <span class="header-icon">⏰</span>
+                    <div>フェーズ</div>
+                </div>
+                <div class="header-cell patient-card">
+                    <span class="header-icon">🏥</span>
+                    <div>患者</div>
+                </div>
+                <div class="header-cell doctor-card">
+                    <span class="header-icon">👨‍⚕️</span>
+                    <div>医師・看護師</div>
+                </div>
+                <div class="header-cell family-card">
+                    <span class="header-icon">👨‍👩‍👧‍👦</span>
+                    <div>家族・介護者</div>
+                </div>
+            </div>
+            
+            <!-- 診察前フェーズ -->
+            <div class="phase-row">
+                <div class="phase-cell phase-title">
+                    <span class="phase-icon">📋</span>
+                    <div>診察前</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">準備・同意</div>
+                </div>
+                
+                <div class="phase-cell patient-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😰 不安・混乱</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😌 準備完了</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">アプリダウンロード・初期設定</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">症状・心配事を3つまで整理</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">録音・共有の同意設定</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">家族との連携設定</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📱 タッチポイント</div>
+                            <div class="touchpoint-desc">モバイルアプリ、事前準備ガイド、同意確認画面</div>
+                        </div>
                     </div>
-                    
-                    <div class="journey-grid">
-                        <div class="persona-card patient-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">🏥</span>
-                                <div class="persona-name">患者</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😰 不安・緊張「何を聞けばいいんだろう...」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>アプリをダウンロード</li>
-                                <li><span class="action-icon">2</span>基本情報・症状を入力</li>
-                                <li><span class="action-icon">3</span>質問事項を3つまで整理</li>
-                                <li><span class="action-icon">4</span>録音・共有の同意設定</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😌 安心「準備ができた！聞きたいことが整理できた」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📱 事前準備画面</div>
-                                <div class="screen-content">
-                                    「今日いちばん気になること」<br>
-                                    1. 薬の副作用について<br>
-                                    2. 次回の検査日程<br>
-                                    3. 日常生活の注意点
-                                </div>
-                            </div>
+                </div>
+                
+                <div class="phase-cell doctor-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">🤔 警戒・懸念</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😊 効率的</div>
                         </div>
                         
-                        <div class="persona-card doctor-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍⚕️</span>
-                                <div class="persona-name">医師</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                🤔 確認「前回の指導、守れてるかな...」
-                            </div>
-                            
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
                             <ul class="actions-list">
-                                <li><span class="action-icon">1</span>前回サマリーを事前確認</li>
-                                <li><span class="action-icon">2</span>宿題の達成状況を把握</li>
-                                <li><span class="action-icon">3</span>継続課題を整理</li>
-                                <li><span class="action-icon">4</span>治療効果を評価</li>
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">患者の事前情報確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">同意状態の確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">質問事項の把握</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">診察計画の最適化</span>
+                                </li>
                             </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😊 効率的「前回からの流れが見えて診察効率UP」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">💻 継続診療支援</div>
-                                <div class="screen-content">
-                                    前回指導事項:<br>
-                                    ✅ 服薬継続: 100%<br>
-                                    ✅ 減塩食: 達成<br>
-                                    📈 血圧推移: 改善傾向
-                                </div>
-                            </div>
                         </div>
                         
-                        <div class="persona-card family-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍👩‍👧‍👦</span>
-                                <div class="persona-name">家族</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😰 心配「ちゃんとできてるかな...」
-                            </div>
-                            
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">💻 タッチポイント</div>
+                            <div class="touchpoint-desc">診察支援ダッシュボード、患者準備状況画面</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-cell family-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😟 疎外感</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">🤝 参加感</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
                             <ul class="actions-list">
-                                <li><span class="action-icon">1</span>宿題進捗を共有</li>
-                                <li><span class="action-icon">2</span>体調変化を記録</li>
-                                <li><span class="action-icon">3</span>次回同席予定を調整</li>
-                                <li><span class="action-icon">4</span>新たな心配事を整理</li>
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">患者からの招待受諾</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">追加質問事項の提案</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">診察後の役割分担調整</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">緊急連絡先の確認</span>
+                                </li>
                             </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😌 協力「みんなで支えられてる実感」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📲 家族サポート</div>
-                                <div class="screen-content">
-                                    今週の取り組み:<br>
-                                    🍙 減塩食: 毎日達成<br>
-                                    💊 服薬: リマインダー設定<br>
-                                    📅 次回: 私も同席予定
-                                </div>
-                            </div>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📲 タッチポイント</div>
+                            <div class="touchpoint-desc">共有リンク、事前相談チャット、役割分担画面</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 診察中フェーズ -->
+            <div class="phase-row">
+                <div class="phase-cell phase-title">
+                    <span class="phase-icon">🏥</span>
+                    <div>診察中</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">音声記録</div>
+                </div>
+                
+                <div class="phase-cell patient-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😅 焦り</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😊 集中</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">録音開始の確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">準備した質問の実行</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">医師の説明に集中</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">リアルタイム文字確認</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📱 タッチポイント</div>
+                            <div class="touchpoint-desc">録音インジケータ、リアルタイム文字表示</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-cell doctor-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😐 通常</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😌 スムーズ</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">事前質問への回答</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">通常通りの診察実施</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">重要ポイントの強調</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">次回予定の調整</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">💻 タッチポイント</div>
+                            <div class="touchpoint-desc">診察支援画面、音声認識状況表示</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-cell family-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😔 疎外感</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">📱 待機</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">診察進行の通知受信</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">後の予定準備</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">質問回答の準備</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">結果共有の待機</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📲 タッチポイント</div>
+                            <div class="touchpoint-desc">進行状況通知、待機画面</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 診察後フェーズ -->
+            <div class="phase-row">
+                <div class="phase-cell phase-title">
+                    <span class="phase-icon">📄</span>
+                    <div>診察後</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">要約・共有</div>
+                </div>
+                
+                <div class="phase-cell patient-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😵‍💫 混乱</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😊 理解</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">要点3行の確認・承認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">家族共有の実行</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">宿題・注意点の確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">次回予定の登録</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📱 タッチポイント</div>
+                            <div class="touchpoint-desc">要約確認画面、共有設定、カレンダー連携</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-cell doctor-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😤 忙しい</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😌 効率的</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">AI生成要約の確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">要点3行の読み上げ</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">患者理解の確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">SOAP記録の確定</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">💻 タッチポイント</div>
+                            <div class="touchpoint-desc">要約生成画面、記録確定画面</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-cell family-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">📱 期待</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😊 安堵</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">共有URLの受信・確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">診察内容の理解</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">役割分担の確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">カレンダー同期</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📲 タッチポイント</div>
+                            <div class="touchpoint-desc">共有リンク、役割分担画面、通知設定</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- フォローアップフェーズ -->
+            <div class="phase-row">
+                <div class="phase-cell phase-title">
+                    <span class="phase-icon">📅</span>
+                    <div>フォロー</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">継続管理</div>
+                </div>
+                
+                <div class="phase-cell patient-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">🤷‍♂️ 忘却</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😊 継続</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">宿題リマインダー対応</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">体調変化の記録</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">次回質問の準備</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">前回内容の振り返り</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📱 タッチポイント</div>
+                            <div class="touchpoint-desc">リマインダー、記録入力画面、履歴確認</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-cell doctor-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😓 心配</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😊 確信</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">遵守状況の確認</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">継続診療計画</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">データ分析・改善</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">効果測定</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">💻 タッチポイント</div>
+                            <div class="touchpoint-desc">患者状況ダッシュボード、効果測定レポート</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-cell family-card">
+                    <div class="persona-content">
+                        <div class="emotion-bar">
+                            <div class="emotion-before">😰 不安</div>
+                            <div class="emotion-arrow">→</div>
+                            <div class="emotion-after">😌 安心</div>
+                        </div>
+                        
+                        <div class="actions-section">
+                            <div class="actions-title">🎯 主なアクション</div>
+                            <ul class="actions-list">
+                                <li class="action-item">
+                                    <span class="action-number">1</span>
+                                    <span class="action-text">継続的な見守り</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">2</span>
+                                    <span class="action-text">変化の記録・報告</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">3</span>
+                                    <span class="action-text">次回診察準備</span>
+                                </li>
+                                <li class="action-item">
+                                    <span class="action-number">4</span>
+                                    <span class="action-text">サポート継続</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="touchpoint">
+                            <div class="touchpoint-title">📲 タッチポイント</div>
+                            <div class="touchpoint-desc">見守りダッシュボード、変化記録、連絡機能</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="benefits-section">
-            <h2 class="benefits-title">🎯 改善される指標</h2>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <span class="benefit-icon">📞</span>
-                    <div class="benefit-text">再問い合わせ</div>
-                    <div class="benefit-metric">▲30%減少</div>
+        <!-- ペインポイント -->
+        <div class="pain-points">
+            <h2 class="pain-title">😰 解決すべき課題</h2>
+            <div class="pain-grid">
+                <div class="pain-item">
+                    <div class="pain-header">
+                        <span class="pain-icon">📝</span>
+                        <div class="pain-name">メモ取りの困難</div>
+                    </div>
+                    <div class="pain-desc">
+                        診察中にメモを取ることに集中してしまい、医師の説明を十分に聞けない。後で見返しても内容が不明確。
+                    </div>
                 </div>
                 
-                <div class="benefit-item">
-                    <span class="benefit-icon">💊</span>
-                    <div class="benefit-text">服薬アドヒアランス</div>
-                    <div class="benefit-metric">+15pt向上</div>
+                <div class="pain-item">
+                    <div class="pain-header">
+                        <span class="pain-icon">🔄</span>
+                        <div class="pain-name">情報の伝言ゲーム</div>
+                    </div>
+                    <div class="pain-desc">
+                        患者→家族→介護者へと情報が伝わる過程で、重要な内容が歪曲・欠落してしまう問題。
+                    </div>
                 </div>
                 
-                <div class="benefit-item">
-                    <span class="benefit-icon">⏱️</span>
-                    <div class="benefit-text">記録作業時間</div>
-                    <div class="benefit-metric">▲25%短縮</div>
+                <div class="pain-item">
+                    <div class="pain-header">
+                        <span class="pain-icon">📞</span>
+                        <div class="pain-name">再問い合わせ多発</div>
+                    </div>
+                    <div class="pain-desc">
+                        診察後に「あれは何だったっけ？」となり、医療機関への確認電話が頻発。医療者の負担も増加。
+                    </div>
                 </div>
                 
-                <div class="benefit-item">
-                    <span class="benefit-icon">😊</span>
-                    <div class="benefit-text">患者満足度</div>
-                    <div class="benefit-metric">+40pt向上</div>
+                <div class="pain-item">
+                    <div class="pain-header">
+                        <span class="pain-icon">⏱️</span>
+                        <div class="pain-name">記録作業の負担</div>
+                    </div>
+                    <div class="pain-desc">
+                        医師の診察後の記録作成に時間がかかり、次の患者への影響や残業の原因となっている。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ソリューション -->
+        <div class="solutions">
+            <h2 class="solution-title">✨ よりそいによる解決</h2>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <div class="solution-header">
+                        <span class="solution-icon">🎤</span>
+                        <div class="solution-name">自動音声記録</div>
+                    </div>
+                    <div class="solution-desc">
+                        医療特化の音声認識で診察内容を自動記録。患者は医師との対話に集中でき、聞き漏らしがなくなる。
+                    </div>
                 </div>
                 
-                <div class="benefit-item">
-                    <span class="benefit-icon">🎯</span>
-                    <div class="benefit-text">理解度</div>
-                    <div class="benefit-metric">90%以上</div>
+                <div class="solution-item">
+                    <div class="solution-header">
+                        <span class="solution-icon">📄</span>
+                        <div class="solution-name">要点3行サマリー</div>
+                    </div>
+                    <div class="solution-desc">
+                        AIが診察内容を「要点3行」に要約。医師の確認後、患者・家族が同じ内容を確認できる。
+                    </div>
                 </div>
                 
-                <div class="benefit-item">
-                    <span class="benefit-icon">👨‍👩‍👧‍👦</span>
-                    <div class="benefit-text">家族共有率</div>
-                    <div class="benefit-metric">60%以上</div>
+                <div class="solution-item">
+                    <div class="solution-header">
+                        <span class="solution-icon">🔗</span>
+                        <div class="solution-name">セキュア共有</div>
+                    </div>
+                    <div class="solution-desc">
+                        期限付きURLで家族・介護者と安全に情報共有。アクセス権限・範囲を細かく制御できる。
+                    </div>
+                </div>
+                
+                <div class="solution-item">
+                    <div class="solution-header">
+                        <span class="solution-icon">⚡</span>
+                        <div class="solution-name">業務効率化</div>
+                    </div>
+                    <div class="solution-desc">
+                        SOAP記録の自動生成により医師の後書き作業を短縮。再問い合わせも大幅に減少し、全体効率が向上。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- KPI -->
+        <div class="kpi-section">
+            <h2 class="kpi-title">📊 期待される改善効果</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-value">▲30%</div>
+                    <div class="kpi-label">再問い合わせ削減</div>
+                    <div class="kpi-desc">診察後の確認電話が大幅減少</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-value">+15pt</div>
+                    <div class="kpi-label">服薬遵守率向上</div>
+                    <div class="kpi-desc">正確な指導で薬の管理改善</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-value">▲25%</div>
+                    <div class="kpi-label">記録時間短縮</div>
+                    <div class="kpi-desc">SOAP自動生成で効率化</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-value">+40pt</div>
+                    <div class="kpi-label">患者満足度</div>
+                    <div class="kpi-desc">理解向上で体験改善</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-value">60%</div>
+                    <div class="kpi-label">家族共有率</div>
+                    <div class="kpi-desc">情報共有の活性化</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-value">+20%</div>
+                    <div class="kpi-label">受診継続率</div>
+                    <div class="kpi-desc">理解促進で治療継続</div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-</html>⚕️</span>
-                                <div class="persona-name">医師</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                🤔 懸念「録音システムの導入、大丈夫かな」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>患者の事前情報を確認</li>
-                                <li><span class="action-icon">2</span>同意状態をチェック</li>
-                                <li><span class="action-icon">3</span>質問事項を把握</li>
-                                <li><span class="action-icon">4</span>診察プランを立てる</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😊 納得「事前準備で診察効率が上がりそう」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">💻 診察準備ダッシュボード</div>
-                                <div class="screen-content">
-                                    同意状態：✓録音 ✓院内 ✓家族共有<br>
-                                    主訴：3つの質問事項<br>
-                                    推定診察時間：15分
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="persona-card family-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍👩‍👧‍👦</span>
-                                <div class="persona-name">家族</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😟 心配「同席できない...何を聞かれるんだろう」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>患者からの共有リンクを受信</li>
-                                <li><span class="action-icon">2</span>事前質問に協力</li>
-                                <li><span class="action-icon">3</span>心配事項を追加</li>
-                                <li><span class="action-icon">4</span>診察後の予定調整</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😌 安堵「離れていても一緒に準備できた」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📲 家族連携画面</div>
-                                <div class="screen-content">
-                                    「お父さんの診察準備」<br>
-                                    ✓ 血圧の薬について確認<br>
-                                    ✓ 次回検査の日程調整<br>
-                                    私が対応：薬局での受取
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 診察中フェーズ -->
-                <div class="phase">
-                    <div class="phase-header">
-                        <div class="phase-number">2</div>
-                        <div class="phase-title">診察中</div>
-                        <div class="phase-subtitle">音声認識・リアルタイム記録</div>
-                    </div>
-                    
-                    <div class="journey-grid">
-                        <div class="persona-card patient-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">🏥</span>
-                                <div class="persona-name">患者</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😅 焦り「メモを取らなきゃ...でも話についていけない」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>準備した質問を確認</li>
-                                <li><span class="action-icon">2</span>録音開始を確認</li>
-                                <li><span class="action-icon">3</span>会話に集中</li>
-                                <li><span class="action-icon">4</span>リアルタイム文字表示を確認</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😊 集中「メモの心配なく、先生の話に集中できた」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📱 診察中画面</div>
-                                <div class="screen-content">
-                                    🔴 録音中 (05:23)<br>
-                                    「血圧の薬は朝食後に...」<br>
-                                    「次回は2週間後に...」<br>
-                                    リアルタイム文字起こし表示
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="persona-card doctor-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍⚕️</span>
-                                <div class="persona-name">医師</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😐 いつも通り「今日も説明をしっかりと...」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>事前質問を確認</li>
-                                <li><span class="action-icon">2</span>通常通りの診察</li>
-                                <li><span class="action-icon">3</span>説明の要点を整理</li>
-                                <li><span class="action-icon">4</span>次回の予定を調整</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😌 効率的「質問が整理されていて話しやすかった」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">💻 診察支援画面</div>
-                                <div class="screen-content">
-                                    音声認識: アクティブ<br>
-                                    話者識別: 医師 / 患者<br>
-                                    SOAP自動生成中...<br>
-                                    次回確認事項: 2件
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="persona-card family-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍👩‍👧‍👦</span>
-                                <div class="persona-name">家族</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😔 不安「今、何を話してるんだろう...」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>診察中の通知待ち</li>
-                                <li><span class="action-icon">2</span>予定の準備・調整</li>
-                                <li><span class="action-icon">3</span>質問回答の準備</li>
-                                <li><span class="action-icon">4</span>後の段取り確認</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😌 期待「もうすぐ結果が共有される」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📲 待機画面</div>
-                                <div class="screen-content">
-                                    「診察中...」<br>
-                                    開始時間: 14:30<br>
-                                    📡 診察終了後に<br>
-                                    要約が届きます
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 診察後フェーズ -->
-                <div class="phase">
-                    <div class="phase-header">
-                        <div class="phase-number">3</div>
-                        <div class="phase-title">診察直後</div>
-                        <div class="phase-subtitle">要点確認・共有・安心</div>
-                    </div>
-                    
-                    <div class="journey-grid">
-                        <div class="persona-card patient-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">🏥</span>
-                                <div class="persona-name">患者</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😵‍💫 混乱「えーっと、何を言われたっけ...」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>医師による要点3行の読み上げ</li>
-                                <li><span class="action-icon">2</span>内容の確認・承認</li>
-                                <li><span class="action-icon">3</span>家族共有URLの発行</li>
-                                <li><span class="action-icon">4</span>宿題の確認</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😊 安心「わかった！家族にも説明できる」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📱 診察サマリー</div>
-                                <div class="screen-content">
-                                    【今日の要点3行】<br>
-                                    1. 血圧は安定、薬継続<br>
-                                    2. 2週間後に採血検査<br>
-                                    3. 塩分控えめを心がける<br>
-                                    家族と共有しますか？
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="persona-card doctor-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍⚕️</span>
-                                <div class="persona-name">医師</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                😤 忙しい「次の患者さんが待ってる...」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>AIが生成した要点を確認</li>
-                                <li><span class="action-icon">2</span>要点3行の読み上げ</li>
-                                <li><span class="action-icon">3</span>患者の理解を確認</li>
-                                <li><span class="action-icon">4</span>SOAP記録の確定</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😌 満足「確実に伝わった。記録作業も楽になった」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">💻 診察完了画面</div>
-                                <div class="screen-content">
-                                    SOAP記録: 自動生成完了<br>
-                                    患者向け要約: 承認済み<br>
-                                    共有設定: 家族のみ(7日)<br>
-                                    次回予約: 2週間後 14:30
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="persona-card family-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍👩‍👧‍👦</span>
-                                <div class="persona-name">家族</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                📱 期待「診察、どうだったかな...」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>共有URLを受信</li>
-                                <li><span class="action-icon">2</span>要点3行を確認</li>
-                                <li><span class="action-icon">3</span>役割分担を確認</li>
-                                <li><span class="action-icon">4</span>カレンダーに予定登録</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😊 安堵「よくわかった！私がやることも明確」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📲 共有された診察結果</div>
-                                <div class="screen-content">
-                                    お父さんの診察結果<br>
-                                    ✅ 血圧良好、薬継続<br>
-                                    📅 2週間後検査予約<br>
-                                    🍙 私の担当: 減塩食準備
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- フォローアップフェーズ -->
-                <div class="phase">
-                    <div class="phase-header">
-                        <div class="phase-number">4</div>
-                        <div class="phase-title">フォローアップ</div>
-                        <div class="phase-subtitle">宿題管理・次回準備</div>
-                    </div>
-                    
-                    <div class="journey-grid">
-                        <div class="persona-card patient-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">🏥</span>
-                                <div class="persona-name">患者</div>
-                            </div>
-                            
-                            <div class="emotion-indicator emotion-before">
-                                🤷‍♂️ 忘却「前回、何を気をつけるって言ってたっけ...」
-                            </div>
-                            
-                            <ul class="actions-list">
-                                <li><span class="action-icon">1</span>宿題リマインダー受信</li>
-                                <li><span class="action-icon">2</span>体調変化をメモ</li>
-                                <li><span class="action-icon">3</span>次回質問事項を準備</li>
-                                <li><span class="action-icon">4</span>前回要点を振り返り</li>
-                            </ul>
-                            
-                            <div class="emotion-indicator emotion-after">
-                                😊 準備万端「前回の内容覚えてる。今度も安心」
-                            </div>
-                            
-                            <div class="screen-mockup">
-                                <div class="screen-title">📱 フォローアップ</div>
-                                <div class="screen-content">
-                                    明日は検査日です<br>
-                                    前回の約束:<br>
-                                    ✅ 減塩食実践中<br>
-                                    ❓ 血圧測定値を報告<br>
-                                    新しい気になること: 追加
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="persona-card doctor-card">
-                            <div class="persona-header">
-                                <span class="persona-icon">👨‍
+</html>
